@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        .resume-section {
+            padding: 50px;
+            background-color: #f9f9f9;
+        }
+        .resume {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid resume-section">
+        <div id="particle-container"></div>
+        <div class="row justify-content-center" style="position: relative;">
+            <a href="Soumyajit_Behera-BIT_MESRA.pdf" target="_blank">
+                <button class="btn btn-primary" style="max-width: 250px;">
+                    <i class="fas fa-download"></i>&nbsp;Download CV
+                </button>
+            </a>
+        </div>
+
+        <div class="row resume">
+            <canvas id="pdf-renderer"></canvas>
+        </div>
+
+        <div class="row justify-content-center" style="position: relative;">
+            <a href="Soumyajit_Behera-BIT_MESRA.pdf" target="_blank">
+                <button class="btn btn-primary" style="max-width: 250px;">
+                    <i class="fas fa-download"></i>&nbsp;Download CV
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- PDF.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+    <script>
+        // PDF Rendering logic
+        const url = 'Soumyajit_Behera-BIT_MESRA.pdf';
+        let canvas = document.getElementById('pdf-renderer');
+        let ctx = canvas.getContext('2d');
+
+        // Asynchronously load the PDF
+        pdfjsLib.getDocument(url).promise.then((pdf) => {
+            pdf.getPage(1).then((page) => {
+                let viewport = page.getViewport({ scale: window.innerWidth > 786 ? 1.7 : 0.6 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                
+                // Render the page
+                page.render({
+                    canvasContext: ctx,
+                    viewport: viewport
+                });
+            });
+        });
+
+        // Simulate Particle Component functionality (if needed, customize as necessary)
+        function initParticles() {
+            let particleContainer = document.getElementById('particle-container');
+            particleContainer.style.height = '100px'; // Placeholder for particle effect
+            particleContainer.innerHTML = '<p>Particle effect placeholder</p>'; // Simulate Particle content
+        }
+
+        window.onload = function() {
+            initParticles();
+        };
+    </script>
+
+</body>
+</html>
